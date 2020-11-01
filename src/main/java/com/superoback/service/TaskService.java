@@ -1,6 +1,7 @@
 package com.superoback.service;
 
 import com.superoback.dto.TaskDTO;
+import com.superoback.model.StatusEnum;
 import com.superoback.model.Task;
 import com.superoback.repository.ITaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,11 @@ public class TaskService {
     }
 
     public TaskDTO findOne(Long id) {
-        return taskRepository.getOne(id).toDTO();
+        return taskRepository.getOne(id).toDTOEdit();
     }
 
     public TaskDTO save(Task task) {
+        task.setStatusEntity(task.getStatusEntity() != null ? task.getStatusEntity() : StatusEnum.TODO );
         return taskRepository.save(task).toDTO();
     }
 
